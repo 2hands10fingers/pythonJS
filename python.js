@@ -21,16 +21,16 @@ class pythonJS {
 		}
 	}
 
-	range(a, b=null, step=1) {
+	range(a, b, step=1) {
 		let arr = [], start, end;
 
 		if (
-			typeof a !== "number" || 
-			typeof step !== "number" ||
+			!(typeof a === "number" && step % 1 === 0) || 
+			!(typeof step === "number" && step % 1 === 0) ||
 			step === 0
 	  	) return NaN;
 	  
-		if (b === null) {
+		if (b === undefined) {
 			start = 0; end = a;
 		} else {
 			start = a; end = b;
