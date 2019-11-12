@@ -21,28 +21,28 @@ class pythonJS {
 		}
 	}
 
-	range(a, b, step=0) {
-	  let arr = [], start, end;
+	range(a, b, step=1) {
+		let arr = [], start, end;
 
-	  if (
-	  	typeof a !== "number" || 
-	  	typeof b !== "number" ||
-	  	typeof step !== "number"
+		if (
+			!(typeof a === "number" && step % 1 === 0) || 
+			!(typeof step === "number" && step % 1 === 0) ||
+			step === 0
 	  	) return NaN;
 	  
-	  if (a && !b) {
-	   	start = 0; end = a;
-	   } else {
-	   	start = a; end = b;
-	   }
+		if (b === undefined) {
+			start = 0; end = a;
+		} else {
+			start = a; end = b;
+		}
 
-	   if (step === 0) {
-	   	for (var i = start; i <= end; i++) arr.push(i);
-	   } else {
-	   	for (var i = start; i <= end; i+=step) arr.push(i);
-	   }
-	   
-	   return arr;
+		if (Math.sign(start - end) === Math.sign(step)) { //if the step has the wrong sing,
+			return NaN;				  //it returns NaN instead of running forever
+		}
+
+		for (var i = start; i < end; i+=step) arr.push(i);
+		
+		return arr;
 	}
 
 	map(func, arr) {
